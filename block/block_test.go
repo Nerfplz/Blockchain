@@ -1,9 +1,10 @@
 package block
 
 import (
-	"blockchain/data"
 	"testing"
 	"time"
+
+	"github.com/Nerfplz/blockchain/data"
 )
 
 var (

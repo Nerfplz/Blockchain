@@ -1,21 +1,22 @@
 package block
 
 import (
-	"blockchain/data"
 	"fmt"
+
+	"github.com/Nerfplz/blockchain/data"
 )
 
 // Blockchain is a glorified slice of blocks.
 type Blockchain struct {
-	blocks  map[Hash]*Block
-	last    **Block
-	genesis **Block
+	blocks      map[Hash]*Block
+	last        **Block
+	genesisHash Hash
 }
 
 // NewBlockchain creates a blockchain that is initialized with a genesis Block.
 func NewBlockchain(d data.Data) Blockchain {
 	genesis := NewGenesis(d)
-	blockchain := Blockchain{make(map[Hash]*Block), &genesis, &genesis}
+	blockchain := Blockchain{make(map[Hash]*Block), &genesis, genesis.Hash}
 	blockchain.blocks[genesis.Hash] = genesis
 	return blockchain
 }
@@ -42,7 +43,7 @@ func (b Blockchain) IsValid() bool {
 	block := b.Last()
 	for block != nil {
 		previous := b.ByHash(block.PreviousHash)
-		if (previous == nil || block.PreviousHash != previous.Hash) && *block != **b.genesis {
+		if (previous == nil || block.PreviousHash != previous.Hash) && block.Hash != b.genesisHash {
 			return false
 		}
 		block = previous

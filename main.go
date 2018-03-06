@@ -1,9 +1,10 @@
 package main
 
 import (
-	"blockchain/block"
-	"blockchain/data"
 	"fmt"
+
+	"github.com/Nerfplz/blockchain/block"
+	"github.com/Nerfplz/blockchain/data"
 )
 
 func main() {

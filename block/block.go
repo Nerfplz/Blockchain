@@ -1,13 +1,14 @@
 package block
 
 import (
-	"blockchain/data"
 	"bytes"
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
 	"strconv"
 	"time"
+
+	"github.com/Nerfplz/blockchain/data"
 )
 
 // HashSize is the size of a hash in bytes.
@@ -25,13 +26,14 @@ type Block struct {
 	Data         data.Data
 	PreviousHash Hash
 	Hash         Hash
+	Height       uint32
 }
 
-func newBlock(data data.Data, PreviousHash Hash) *Block {
+func newBlock(data data.Data, previousHash Hash) *Block {
 	block := &Block{
 		Timestamp:    time.Now().Unix(),
 		Data:         data,
-		PreviousHash: PreviousHash,
+		PreviousHash: previousHash,
 	}
 	block.generateHash()
 	return block
